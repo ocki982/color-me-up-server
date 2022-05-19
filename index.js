@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const userRoute = require("./routes/users");
 
 dotenv.config();
 
@@ -19,7 +20,13 @@ mongoose.connect(
 );
 
 // Middleware
+app.use(express.json());
+app.use(helmet());
+app.use(morgan("common"));
 app.use(cors());
+
+app.use("/users", userRoute);
+
 
 const io = new Server(http, {
   cors: {
