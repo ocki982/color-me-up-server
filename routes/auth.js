@@ -1,17 +1,30 @@
 const express = require("express");
 const router = express.Router(); 
 const User = require("../models/Users");
+const bcrypt = require("bcrypt");
 
 
 router.post("/register", (req, res) => {
-    const user = new User({
-        username:"octavio",
-        email:"octa@gmail.com",
-        password:"123456"
-    })
+try{
+    const { username, email, password } = req.body;
 
-    user.save();
-    res.send("ok")
+    if (!username || !email || !password) {
+        return res.status(400).send("Please enter the required fields.");
+    }
+
+    const hashedPassword = bcrypt.hashSync(password, 12);
+
+    const newUser = new User({
+        username: username,
+        email: email,
+        password: hashedPassword,
+    });
+
+    newUser.save();
+    res.status(200).json(newUser);
+  } catch (err) {
+    res.status(500).json(err)
+  }
 });
 
 module.exports = router;
