@@ -8,6 +8,8 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const userRoute = require("./routes/users");
+const authRoute = require("./routes/auth");
+
 
 dotenv.config();
 
@@ -25,7 +27,11 @@ app.use(helmet());
 app.use(morgan("common"));
 app.use(cors());
 
+
+// Routes
 app.use("/users", userRoute);
+app.use("/api/auth", authRoute);
+
 
 
 const io = new Server(http, {
