@@ -30,7 +30,7 @@ app.use(cors());
 
 // Routes
 app.use("/users", userRoute);
-app.use("/api/auth", authRoute);
+app.use("/auth", authRoute);
 
 
 
