@@ -41,6 +41,30 @@ router.put("/:id/like", async (req, res) => {
     }
   });
 
+// get comments for user
+
+router.get("/user/all", authenticate, (req, res) => {
+    try{
+      Post.find({ user: req.user.username }, function (_err, users) {
+        res.send(users);
+    });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+module.exports = router;
+
 // get all comments
+
+router.get("/all", (_req, res) => {
+    try{
+      Post.find({}, function (_err, users) {
+        res.send(users);
+    });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 
 module.exports = router;
