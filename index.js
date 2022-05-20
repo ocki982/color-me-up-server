@@ -9,6 +9,8 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
+const postRoute = require("./routes/posts");
+
 
 
 dotenv.config();
@@ -31,6 +33,8 @@ app.use(cors());
 // Routes
 app.use("/users", userRoute);
 app.use("/auth", authRoute);
+app.use("/posts", postRoute);
+
 
 
 
