@@ -6,6 +6,7 @@ const authenticate = require('../middleware/authenticate');
 // post a new comment
 
 router.post("/", (req, res) => {
+  
     const newPost = new Post(req.body);
     try {
         newPost.save();
