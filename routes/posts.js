@@ -20,7 +20,7 @@ router.post("/", (req, res) => {
 
 router.delete("/delete", authenticate, async (req, res) => {
     try {
-      await Post.deleteOne({ user: req.user.username});
+      await Post.deleteOne({ _id: req.user._id });
       res.status(200).send("Post has been deleted");
     } catch (err) {
       return res.status(500).json(err);
