@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema({
-    userId: {
+    user: {
         type: String,
         require: true,
       },
