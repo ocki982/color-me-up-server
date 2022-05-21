@@ -2,15 +2,17 @@ const express = require("express");
 const router = express.Router(); 
 const Post = require("../models/Post");
 const authenticate = require('../middleware/authenticate');
+const { postEmotion } = require("../api/emotions");
 
 // post a new comment
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   
-    const newPost = new Post(req.body);
+    // const newPost = new Post(req.body);
     try {
-        newPost.save();
-        res.status(200).send("Posted!");
+        // newPost.save();
+         const emotion = await postEmotion(req.body.text)
+        res.status(200).send(emotion);
     } catch (err) {
       res.status(500).json(err);
     }
