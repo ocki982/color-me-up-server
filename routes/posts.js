@@ -56,8 +56,6 @@ router.get("/user/all", authenticate, (req, res) => {
     }
   });
 
-module.exports = router;
-
 // get all comments
 
 router.get("/all", (_req, res) => {

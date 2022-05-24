@@ -1,17 +1,15 @@
 const express = require("express");
 const app = express();
-const http = require('http').createServer(app)
+const http = require("http").createServer(app);
 const { Server } = require("socket.io");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
-const userRoute = require("./routes/users");
-const authRoute = require("./routes/auth");
-const postRoute = require("./routes/posts");
-
-
+const { userRoute, authRoute, postRoute, emotionsRoute } = require("./routes");
+const Post = require("./models/Post");
+const uuidv4 = require("uuid").v4;
 
 dotenv.config();
 
@@ -29,14 +27,16 @@ app.use(helmet());
 app.use(morgan("common"));
 app.use(cors());
 
-
 // Routes
 app.use("/users", userRoute);
 app.use("/auth", authRoute);
 app.use("/posts", postRoute);
+//app.use("/emotions", emotionsRoute);
 
-
-
+const defaultUser = {
+  id: "anon",
+  name: "Anonymous",
+};
 
 const io = new Server(http, {
   cors: {
@@ -45,14 +45,23 @@ const io = new Server(http, {
   },
 });
 
-io.on('connection', socket => {
-  socket.on('message', ({ name, message }) => {
-    io.emit('message', { name, message })
-  })
-})
+io.on("connection", (socket) => {
+  Post.find().then((result) => {
+    socket.emit("output-messages", result);
+  });
+  socket.on("message", (text) => {
+    const message = {
+      id: uuidv4(),
+      user: defaultUser,
+      text,
+    };
+    const newMessage = new Post(message);
+    newMessage.save().then(() => {
+      io.emit("message", message);
+    });
+  });
+});
 
-
-
-http.listen(4000, function() {
-  console.log('listening on port 4000')
-})
+http.listen(4000, function () {
+  console.log("listening on port 4000");
+});

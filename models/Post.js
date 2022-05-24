@@ -1,22 +1,28 @@
 const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema({
-    user: {
-        type: String,
+    id: {
+        type: Object,
         require: true,
-      },
-      comment: {
-        type: String,
-        required: true,
-        max: 500,
-      },
-      emotion:{
+
+        user: {
+          type: Object,
+          require: true,
+        },
+
+        text: {
           type: String,
-      },
-      likes: {
-        type: Array,
-        default: [],
-      },
+          required: true,
+          max: 500,
+        },
+        emotion:{
+            type: String,
+        },
+        likes: {
+          type: Array,
+          default: [],
+        },
+    },
     },
     { timestamps: true }
 );
