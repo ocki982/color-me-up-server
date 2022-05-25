@@ -49,10 +49,10 @@ io.on("connection", (socket) => {
   Post.find().then((result) => {
     socket.emit("output-messages", result);
   });
-  socket.on("message", ({ text, emotion }) => {
+  socket.on("message", ({ text, emotion, user }) => {
     const message = {
       id: uuidv4(),
-      user: defaultUser,
+      user,
       text,
       emotion,
     };
