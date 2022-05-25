@@ -1,14 +1,17 @@
 const express = require("express");
 const router = express.Router();
+const { parseEmotionToColor } = require("../utils");
 const { postEmotion } = require("../api/emotions");
 
 router.post("/", async (req, res) => {
-  try {
-    const emotion = await postEmotion(req.body.text);
+try{
+    let emotions = await postEmotion(req.body.text);
+    console.log(emotions)
+    emotions = JSON.parse(emotions)
+    const emotion = parseEmotionToColor(emotions.emotion);
     res.status(200).send(emotion);
-  } catch (err) {
-    res.status(500).json(err);
-  }
+}catch { res.status(500);
+}
 });
 
-module.exports = { router };
+module.exports = router;

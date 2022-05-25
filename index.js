@@ -31,7 +31,7 @@ app.use(cors());
 app.use("/users", userRoute);
 app.use("/auth", authRoute);
 app.use("/posts", postRoute);
-//app.use("/emotions", emotionsRoute);
+app.use("/emotions", emotionsRoute);
 
 const defaultUser = {
   id: "anon",
@@ -49,16 +49,17 @@ io.on("connection", (socket) => {
   Post.find().then((result) => {
     socket.emit("output-messages", result);
   });
-  socket.on("message", (text) => {
+  socket.on("message", ({ text, emotion }) => {
     const message = {
       id: uuidv4(),
       user: defaultUser,
       text,
+      emotion,
     };
-    const newMessage = new Post(message);
-    newMessage.save().then(() => {
-      io.emit("message", message);
-    });
+    io.emit("message", message);
+    //const newMessage = new Post(message);
+    // newMessage.save().then(() => {
+    // });
   });
 });
 
