@@ -57,9 +57,8 @@ io.on("connection", (socket) => {
       emotion,
     };
     io.emit("message", message);
-    //const newMessage = new Post(message);
-    // newMessage.save().then(() => {
-    // });
+    const newMessage = new Post(message);
+    newMessage.save()
   });
 });
 
