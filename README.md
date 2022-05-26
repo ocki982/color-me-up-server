@@ -50,7 +50,7 @@ Start the client
 ```
 ===NOTE===
 
-- env. variables are sent with the code just for academic purposes, will be deleted later
+- env. variables are sent at side for academic purposes
 
 
 
