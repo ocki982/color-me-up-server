@@ -1,15 +1,11 @@
-const axios = require("axios")
+// Custom package provided by the api to work with it
+const dotenv = require("dotenv");
 const pd = require('paralleldots');
 
+dotenv.config();
 
-const API_KEY = process.env.EMOTIONS_API_KEY;
-const API_URL = process.env.EMOTIONS_API_URL;
-
-pd.apiKey = "hgPXry29G2cZcizhPDuj6MzHgF3oJGiTfLKFr3wMnYA";
-
+// Custom function to make post requests on the API
+pd.apiKey = process.env.EMOTIONS_API_KEY;
 const postEmotion = (text) => pd.emotion(text,"en")
-
-
-// const postEmotion = (text) => axios.post(`${API_URL}`, { text, api_key: API_KEY, lang_code: "es" });
 
 module.exports = { postEmotion }
