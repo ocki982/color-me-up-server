@@ -4,8 +4,8 @@ const postRoute = require("./posts");
 const emotionsRoute = require("./emotions");
 
 module.exports = {
-    userRoute,
-    authRoute,
-    postRoute,
-    emotionsRoute
-}
+  userRoute,
+  authRoute,
+  postRoute,
+  emotionsRoute,
+};

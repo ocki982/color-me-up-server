@@ -1,3 +1,6 @@
+
+// Function to return the highest value from the object sent 
+// back from the API when detecting emotions
 const findHighest = (obj) => {
   const values = Object.values(obj);
   const max = Math.max.apply(Math, values);
@@ -10,6 +13,8 @@ const findHighest = (obj) => {
   }
 };
 
+
+// Function to parse the emotion to a single color
 const parseEmotionToColor = (emotion) => {
   const highestEmotion = Object.keys(findHighest(emotion)).toString();
   switch (highestEmotion) {

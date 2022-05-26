@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 // If no valid JWT is provided, this middleware will respond with 401 Unauthorized.
-// - Expected headers: { Authorization: "Bearer JWT_TOKEN_HERE" }
 const authenticate = (req, res, next) => {
     // If there is no auth header provided
     if (!req.headers.authorization) {
