@@ -11,7 +11,9 @@ const { userRoute, authRoute, postRoute, emotionsRoute } = require("./routes");
 const Post = require("./models/Post");
 const uuidv4 = require("uuid").v4;
 
-dotenv.config();
+// Configuration
+require("dotenv").config();
+const PORT = process.env.PORT || 8080;
 
 // Mongoose middleware to connect to the Mongo DB
 mongoose.connect(
@@ -61,6 +63,6 @@ io.on("connection", (socket) => {
   });
 });
 
-http.listen(4000, function () {
+http.listen(process.env.PORT, () => {
   console.log("listening on port 4000");
 });
