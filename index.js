@@ -63,6 +63,6 @@ io.on("connection", (socket) => {
   });
 });
 
-http.listen(process.env.PORT, () => {
-  console.log("listening on port 4000");
+http.listen(PORT, () => {
+  console.log(`Our app is running on port ${ PORT }`);
 });
